@@ -2,7 +2,7 @@ all: main
 .PHONY: all
 
 cc=gcc
-CFLAGS += -Wall
+CFLAGS += -Wall -O4 -finline-functions
 EXTRA_CFLAGS =
 RM=rm -f
 
