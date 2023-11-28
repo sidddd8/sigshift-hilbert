@@ -104,6 +104,7 @@ int main(int argc, char *argv[]) {
 
     if (load_signals(&signals, fd, SHIFTED_ID) == EXIT_FAILURE) {
         fprintf(stderr, "ERR: Failed loading singal values\n");
+        return 0;
     }
     else {
         fprintf(stderr, "INFO: Succesfuly read and loaded signal values\n");
