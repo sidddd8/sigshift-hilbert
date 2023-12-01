@@ -38,6 +38,7 @@ int main(int argc, char *argv[]) {
     }
     else {
         fprintf(stderr, "INFO: Succesfuly read and loaded signal values\n");
+        fprintf(stderr, "INFO: Signals are of length %d\n", signals.sig_len);
     }
 
     free(signals.reference);

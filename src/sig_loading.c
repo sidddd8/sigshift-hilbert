@@ -17,7 +17,7 @@ FILE *open_csv(const char *file_path) {
 }
 
 int load_signals(sig_pair *signals, FILE *fd, int id) {
-    int size = 750;
+    int size = 1024;
     signals->id = id;
     signals->reference = calloc(size, sizeof(int));
     signals->shifted = calloc(size, sizeof(int));
@@ -61,6 +61,7 @@ int load_signals(sig_pair *signals, FILE *fd, int id) {
         }
         num_lines++;
     }
-    signals->sig_len = num_lines-1;
+    signals->sig_len = size;
+    //fprintf(stderr, "Size is %d",size);
     return EXIT_SUCCESS;
 }

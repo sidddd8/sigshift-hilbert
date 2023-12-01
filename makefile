@@ -11,4 +11,4 @@ main: src/main.c src/sig_loading.c src/sig_loading.h
 
 clean: 
 	$(RM) main
-	$(CC) $(CFLAGS) $(EXTRA_CFLAGS) -o main src/main.c
+	$(CC) $(CFLAGS) $(EXTRA_CFLAGS) -o main src/main.c src/sig_loading.c src/sig_loading.h
