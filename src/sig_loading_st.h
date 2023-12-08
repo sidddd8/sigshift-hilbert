@@ -1,5 +1,5 @@
-#ifndef SIG_LOADING_H
-#define SIG_LOADING_H
+#ifndef SIG_LOADING_H_DYN
+#define SIG_LOADING_H_DYN
 
 #include <stdio.h>
 #include <unistd.h>
@@ -12,12 +12,12 @@
 #define MAX_LINELEN 100
 #define DEFAULT_FILEPATH "/src/data/DIT-SHM-dataset.csv"
 #define SHIFTED_ID 1
+#define SIG_LENGTH 16384
 
 typedef struct {
     int id;
-    int sig_len;
-    int *reference;
-    int *shifted;
+    int reference[SIG_LENGTH];
+    int shifted[SIG_LENGTH];
 } sig_pair;
 
 
