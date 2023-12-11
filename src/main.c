@@ -7,7 +7,6 @@
 
 #include "sig_loading_st.h"
 
-
 char* parse_args(int argc, char *argv[]) {
     char *file_path;
     if (argc == 1) {
@@ -40,8 +39,8 @@ int main(int argc, char *argv[]) {
     else {
         (void)fprintf(stderr, "INFO: Succesfuly read and loaded signal values\n");
     }
-
     fclose(fd);
+
     
     return 0;
 }

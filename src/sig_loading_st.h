@@ -15,9 +15,14 @@
 #define SIG_LENGTH 16384
 
 typedef struct {
+    float re;
+    float im;
+} complex;
+
+typedef struct {
     int id;
-    int reference[SIG_LENGTH];
-    int shifted[SIG_LENGTH];
+    complex reference[SIG_LENGTH];
+    complex shifted[SIG_LENGTH];
 } sig_pair;
 
 

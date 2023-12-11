@@ -21,26 +21,36 @@ int load_signals(sig_pair *signals, FILE *fd, int id) {
     char row[MAX_LINELEN];
     
     char *token;
-    int num_lines = 0;
-    while (feof(fd) != true) {
+    bool file_end = false;
+    for (int row_num = 0; row_num < SIG_LENGTH; ++row_num) {
         if (fgets(row, MAX_LINELEN, fd) == NULL) {
-            break;
+            file_end = true;
         }
        // first line (line 0) is the header of the .csv
-        if (num_lines >= 1) {
-            token = strtok(row, ";");
-            signals->reference[num_lines-1] = atoi(token);
-            
-            int tok_id = 1;
-            while(token != NULL) {
-                token = strtok(NULL, ";");
-                if (tok_id == id) {
-                    signals->shifted[num_lines-1] = atoi(token);
+        if (row_num >= 1) {
+            if (file_end == true) {
+                signals->reference[row_num-1].re = 0;
+                signals->reference[row_num-1].im = 0;
+                signals->shifted[row_num-1].re = 0;
+                signals->shifted[row_num-1].im = 0;
+            }
+            else {
+                token = strtok(row, ";");
+                
+                signals->reference[row_num-1].re = atoi(token);
+                signals->reference[row_num-1].im = 0;
+                
+                int tok_id = 1;
+                while(token != NULL) {
+                    token = strtok(NULL, ";");
+                    if (tok_id == id) {
+                        signals->shifted[row_num-1].re = atoi(token);
+                        signals->shifted[row_num-1].im = 0;
+                    }
+                    tok_id++;
                 }
-                tok_id++;
             }
         }
-        num_lines++;
     }
     return EXIT_SUCCESS;
 }

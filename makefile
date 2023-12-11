@@ -3,12 +3,12 @@ all: main
 
 cc=gcc
 CFLAGS += -Wall -Wpedantic -Werror -O4 -finline-functions
-EXTRA_CFLAGS =
+EXTRA_CFLAGS = -lm
 RM=rm -f
 
-main: src/main.c src/sig_loading_st.c src/sig_loading_st.h
-	$(CC) $(CFLAGS) $(EXTRA_CFLAGS) -o main src/main.c src/sig_loading_st.c src/sig_loading_st.h
+main: src/main.c src/sig_loading_st.c
+	$(CC) $(CFLAGS) -o main src/main.c src/sig_loading_st.c $(EXTRA_CFLAGS)
 
 clean: 
 	$(RM) main
-	$(CC) $(CFLAGS) $(EXTRA_CFLAGS) -o main src/main.c src/sig_loading_st.c src/sig_loading_st.h
+	$(CC) $(CFLAGS) -o main src/main.c src/sig_loading_st.c $(EXTRA_CFLAGS) 
