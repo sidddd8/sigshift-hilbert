@@ -6,6 +6,7 @@
 #include <limits.h>
 
 #include "sig_loading_st.h"
+#include "fft.h"
 
 char* parse_args(int argc, char *argv[]) {
     char *file_path;

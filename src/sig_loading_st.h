@@ -7,17 +7,13 @@
 #include <string.h>
 #include <stdbool.h>
 #include <limits.h>
+#include "fft.h"
 
 #define MAX_PATHLEN 400
 #define MAX_LINELEN 100
 #define DEFAULT_FILEPATH "/src/data/DIT-SHM-dataset.csv"
 #define SHIFTED_ID 1
 #define SIG_LENGTH 16384
-
-typedef struct {
-    float re;
-    float im;
-} complex;
 
 typedef struct {
     int id;
