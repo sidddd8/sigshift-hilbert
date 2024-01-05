@@ -7,6 +7,13 @@
 
 #include "sig_loading_st.h"
 #include "fft.h"
+#include "test_cases_signals.c"
+
+void print_signal(complex* signal, int n) {
+    for (int i = 0; i < n; ++i) {
+        fprintf(stderr, "[%d] : {%.3f, %.3fi}\n", i, signal[i].re, signal[i].im);
+    }
+}
 
 char* parse_args(int argc, char *argv[]) {
     char *file_path;
@@ -42,6 +49,20 @@ int main(int argc, char *argv[]) {
     }
     fclose(fd);
 
+    for (int i = 0; i < n_tests; ++i) {
+        print_signal(test_cases[i], len_tests);
+        fprintf(stderr, "---------\n");
+
+        fft(test_cases[i], len_tests, 1);
+        print_signal(test_cases[i], len_tests);
+        fprintf(stderr, "---------\n");
+
+        normalized_fft(test_cases[i], len_tests, -1);
+        print_signal(test_cases[i], len_tests);
+        fprintf(stderr, "---------\n");
+
+        fprintf(stderr, "---------------------------\n");
+    }
     
     return 0;
 }
