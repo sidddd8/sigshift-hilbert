@@ -4,10 +4,11 @@
 #include <string.h>
 #include <stdbool.h>
 #include <limits.h>
+#include <time.h>
 
 #include "sig_loading_st.h"
-#include "sig_utils.h"
 #include "test_cases_signals.c"
+#include "processing.h"
 
 char* parse_args(int argc, char *argv[]) {
     char* file_path;
@@ -42,7 +43,30 @@ int main(int argc, char *argv[]) {
         (void)fprintf(stderr, "INFO: Succesfuly read and loaded signal values\n");
     }
     fclose(fd);
-    
+
+    clock_t begin;
+    clock_t end;
+    double time_spent_EV;
+    double time_spent_alg;
+
+    begin = clock();
+    float EV_shift = signal_EV(signals.shifted, signals.n);
+    end = clock();
+    time_spent_EV = (double)(end - begin) / CLOCKS_PER_SEC;
+    fprintf(stderr, "\nTime spent calculating the EV of a signal: %f\n", time_spent_EV);
+
+
+    float phase_shift[signals.n];
+
+    begin = clock();
+    determine_phase_shift(phase_shift, signals.reference, signals.shifted, signals.n); 
+    end = clock();
+    time_spent_alg = (double)(end - begin) / CLOCKS_PER_SEC;
+    fprintf(stderr, "Time spent performing the algorithm: %f\n", time_spent_alg);
+
+    double scale = time_spent_alg/time_spent_EV;
+    fprintf(stderr, "Scaling of %f\n", scale);
+
 
     return 0;
 }

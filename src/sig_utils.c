@@ -2,7 +2,7 @@
 
 inline void print_signal(complex* arr, int n) {
     for (int i = 0; i < n; ++i) {
-        fprintf(stderr, "[%d] : {%.3f, %.3fi}\n", i, arr[i].re, arr[i].im);
+        (void)fprintf(stderr, "[%d] : {%.3f, %.3fi}\n", i, arr[i].re, arr[i].im);
     }
 }
 
@@ -18,6 +18,15 @@ inline void normalize_signal(complex* arr, int n) {
         arr[i].re /= n;
         arr[i].im /= n;
     }
+}
+
+inline float signal_EV(complex* arr, int n) {
+    float sum = 0.0;
+    for (int i = 0; i < n; ++i) {
+        sum = sum + arr[i].re;
+    }
+    sum = sum/n;
+    return sum;
 }
 
 inline void fft(complex* arr, int n, int direction) {
@@ -61,7 +70,7 @@ inline void hilbert(complex* arr, int n) {
     complex arr_tmp[n];
     copy_signal(arr_tmp, arr, n);
 
-    fft(arr, n, 1);
+    fft(arr, SIG_LENGTH, 1);
 
     arr[0].re = 0;
     arr[0].im = 0;
@@ -82,7 +91,7 @@ inline void hilbert(complex* arr, int n) {
         arr[i].im = tmp;
     }
     // ---------------------------
-    fft(arr, n, -1);
+    fft(arr, SIG_LENGTH, -1);
 
     // put the original signal and its Hilbert transform together
     // original signal is stored in the real part

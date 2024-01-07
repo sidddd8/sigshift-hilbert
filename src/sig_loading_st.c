@@ -22,9 +22,13 @@ int load_signals(sig_pair* signals, FILE* fd, int id) {
     
     char *token;
     bool file_end = false;
+    int n = 0;
     for (int row_num = 0; row_num <= SIG_LENGTH; ++row_num) {
         if (fgets(row, MAX_LINELEN, fd) == NULL) {
             file_end = true;
+        }
+        else {
+            n++;
         }
        // first line (line 0) is the header of the .csv
         if (row_num >= 1) {
@@ -52,6 +56,7 @@ int load_signals(sig_pair* signals, FILE* fd, int id) {
             }
         }
     }
+    signals->n = n-1;
     return EXIT_SUCCESS;
 }
 

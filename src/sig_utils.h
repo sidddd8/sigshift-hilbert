@@ -3,6 +3,7 @@
 
 #include <math.h>
 #include <stdio.h>
+#include "SIG_CONFIG.h"
 
 #define PI 3.141592653589793238462643383279502884
 
@@ -24,6 +25,9 @@ void copy_signal(complex* target, complex* orig, int n);
 // arr : signal to be normalized
 // n   : lenght of the signal
 void normalize_signal(complex* arr, int n);
+
+// Computes the expected value of a signal
+float signal_EV(complex* arr, int n);
 
 // Recursive Cooley-Tukey radix 2 FFT algorithm
 // arr      : array to be converted into its FFT image

@@ -9,6 +9,7 @@
 
 typedef struct {
     int id;
+    int n;
     complex reference[SIG_LENGTH];
     complex shifted[SIG_LENGTH];
 } sig_pair;
