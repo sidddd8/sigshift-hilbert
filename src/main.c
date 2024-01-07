@@ -6,17 +6,11 @@
 #include <limits.h>
 
 #include "sig_loading_st.h"
-#include "fft.h"
+#include "sig_utils.h"
 #include "test_cases_signals.c"
 
-void print_signal(complex* signal, int n) {
-    for (int i = 0; i < n; ++i) {
-        fprintf(stderr, "[%d] : {%.3f, %.3fi}\n", i, signal[i].re, signal[i].im);
-    }
-}
-
 char* parse_args(int argc, char *argv[]) {
-    char *file_path;
+    char* file_path;
     if (argc == 1) {
         file_path = DEFAULT_FILEPATH;
     } 
@@ -33,7 +27,7 @@ int main(int argc, char *argv[]) {
     (void)fprintf(stderr, "INFO: Working data file: '%s'\n", file_path);
     (void)fprintf(stderr, "INFO: Signal static max size = %d\n", SIG_LENGTH);
     
-    FILE *fd = open_csv(file_path);
+    FILE* fd = open_csv(file_path);
     if (fd == NULL) {
         (void)fprintf(stderr, "ERR: Couldnt open file at '%s'\nQUITTING\n", file_path);
         return 0;
@@ -48,21 +42,18 @@ int main(int argc, char *argv[]) {
         (void)fprintf(stderr, "INFO: Succesfuly read and loaded signal values\n");
     }
     fclose(fd);
-
+    complex test1[len_tests];
+    copy_signal(test1, test_cases[0], len_tests);
     for (int i = 0; i < n_tests; ++i) {
+        fprintf(stderr, "SIGNAL:\n");
         print_signal(test_cases[i], len_tests);
-        fprintf(stderr, "---------\n");
+        fprintf(stderr, "\n");
 
-        fft(test_cases[i], len_tests, 1);
+        fprintf(stderr, "HILBERT:\n");
+        hilbert(test_cases[i], len_tests);
         print_signal(test_cases[i], len_tests);
-        fprintf(stderr, "---------\n");
-
-        normalized_fft(test_cases[i], len_tests, -1);
-        print_signal(test_cases[i], len_tests);
-        fprintf(stderr, "---------\n");
-
-        fprintf(stderr, "---------------------------\n");
+        fprintf(stderr, "\n");
+        fprintf(stderr, "-------------------\n");
     }
-    
     return 0;
 }

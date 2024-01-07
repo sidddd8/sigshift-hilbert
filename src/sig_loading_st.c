@@ -1,6 +1,6 @@
 #include "sig_loading_st.h"
 
-FILE *open_csv(const char *file_path) {
+FILE *open_csv(const char* file_path) {
     FILE *fd;
     char cwd[MAX_PATHLEN];
 
@@ -16,7 +16,7 @@ FILE *open_csv(const char *file_path) {
     return fd;
 }
 
-int load_signals(sig_pair *signals, FILE *fd, int id) {
+int load_signals(sig_pair* signals, FILE* fd, int id) {
     signals->id = id;
     char row[MAX_LINELEN];
     
@@ -54,3 +54,4 @@ int load_signals(sig_pair *signals, FILE *fd, int id) {
     }
     return EXIT_SUCCESS;
 }
+
