@@ -22,7 +22,7 @@ int load_signals(sig_pair* signals, FILE* fd, int id) {
     
     char *token;
     bool file_end = false;
-    for (int row_num = 0; row_num < SIG_LENGTH; ++row_num) {
+    for (int row_num = 0; row_num <= SIG_LENGTH; ++row_num) {
         if (fgets(row, MAX_LINELEN, fd) == NULL) {
             file_end = true;
         }

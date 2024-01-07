@@ -42,18 +42,7 @@ int main(int argc, char *argv[]) {
         (void)fprintf(stderr, "INFO: Succesfuly read and loaded signal values\n");
     }
     fclose(fd);
-    complex test1[len_tests];
-    copy_signal(test1, test_cases[0], len_tests);
-    for (int i = 0; i < n_tests; ++i) {
-        fprintf(stderr, "SIGNAL:\n");
-        print_signal(test_cases[i], len_tests);
-        fprintf(stderr, "\n");
+    
 
-        fprintf(stderr, "HILBERT:\n");
-        hilbert(test_cases[i], len_tests);
-        print_signal(test_cases[i], len_tests);
-        fprintf(stderr, "\n");
-        fprintf(stderr, "-------------------\n");
-    }
     return 0;
 }

@@ -1,6 +1,3 @@
-#ifndef SIG_LOADING_H_DYN
-#define SIG_LOADING_H_DYN
-
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -8,7 +5,7 @@
 #include <stdbool.h>
 #include <limits.h>
 #include "sig_utils.h"
-#include "sig_config.h"
+#include "SIG_CONFIG.h"
 
 typedef struct {
     int id;
@@ -20,5 +17,3 @@ typedef struct {
 FILE *open_csv(const char* file_path);
 
 int load_signals(sig_pair* signals, FILE* fd, int id);
-
-#endif
