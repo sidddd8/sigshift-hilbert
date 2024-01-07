@@ -13,7 +13,7 @@ inline void copy_signal(complex* target, complex* orig, int n) {
     }
 }
 
-inline void normalize_array(complex* arr, int n) {
+inline void normalize_signal(complex* arr, int n) {
     for (int i = 0; i < n; ++i) {
         arr[i].re /= n;
         arr[i].im /= n;
@@ -53,7 +53,7 @@ inline void fft(complex* arr, int n, int direction) {
 
 inline void normalized_fft(complex* arr, int n, int direction) {
     fft(arr, n, direction);
-    normalize_array(arr, n);
+    normalize_signal(arr, n);
 }
 
 
