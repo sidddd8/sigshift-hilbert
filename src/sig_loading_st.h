@@ -18,3 +18,5 @@ typedef struct {
 FILE *open_csv(const char* file_path);
 
 int load_signals(sig_pair* signals, FILE* fd, int id);
+
+int write_into_csv(float* arr, int n, char* filename);

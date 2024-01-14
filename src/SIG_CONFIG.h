@@ -3,6 +3,6 @@
 
 #define DEFAULT_FILEPATH "/src/data/DIT-SHM-dataset.csv"
 
-#define SHIFTED_ID 2
+#define SHIFTED_ID 9   // number 1 to 9
 
-#define SIG_LENGTH 16384
+#define SIG_LENGTH 16384 // power of 2

@@ -15,6 +15,18 @@ void unwrap_angle(float *in, float *out, int n) {
     }
 }
 
+float wrap_max(float x, float max)
+{
+    return fmodf(max + fmodf(x, max), max);
+}
+
+
+float wrap_between(float x, float min, float max)
+{
+    return min + wrap_max(x - min, max - min);
+}
+
+
 void determine_phase_shift(float* phase_shift, complex* reference, complex* shifted, int n) {
 
     hilbert(reference, n);

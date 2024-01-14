@@ -60,3 +60,16 @@ int load_signals(sig_pair* signals, FILE* fd, int id) {
     return EXIT_SUCCESS;
 }
 
+int write_into_csv(float* arr, int n, char* filename) {
+    FILE* w_file;
+    w_file = fopen(filename, "w+");
+    if (w_file == NULL) {
+        fprintf(stderr, "ERR: Failed opening file '%s'\n", filename);
+        return EXIT_FAILURE;
+    }
+    for (int i = 0; i < n; ++i) {
+        fprintf(w_file, "%.3f\n", arr[i]);
+    }
+    return EXIT_SUCCESS;
+}
+
