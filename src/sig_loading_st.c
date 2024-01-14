@@ -41,14 +41,14 @@ int load_signals(sig_pair* signals, FILE* fd, int id) {
             else {
                 token = strtok(row, ";");
                 
-                signals->reference[row_num-1].re = atoi(token);
+                signals->reference[row_num-1].re = atof(token);
                 signals->reference[row_num-1].im = 0;
                 
                 int tok_id = 1;
                 while(token != NULL) {
                     token = strtok(NULL, ";");
                     if (tok_id == id) {
-                        signals->shifted[row_num-1].re = atoi(token);
+                        signals->shifted[row_num-1].re = atof(token);
                         signals->shifted[row_num-1].im = 0;
                     }
                     tok_id++;
@@ -68,8 +68,9 @@ int write_into_csv(float* arr, int n, char* filename) {
         return EXIT_FAILURE;
     }
     for (int i = 0; i < n; ++i) {
-        fprintf(w_file, "%.3f\n", arr[i]);
+        fprintf(w_file, "%f\n", arr[i]);
     }
+    fclose(w_file);
     return EXIT_SUCCESS;
 }
 

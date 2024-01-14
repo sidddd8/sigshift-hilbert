@@ -10,20 +10,29 @@
 #include "test_cases_signals.c"
 #include "processing.h"
 
+int TEST_CASE = 0; // leave at 0 for any input file other than the test file
+
 char* parse_args(int argc, char *argv[]) {
     char* file_path;
-    if (argc == 1) {
-        file_path = DEFAULT_FILEPATH;
-    } 
-    else {
-        file_path = argv[1];
+    if (TEST_CASE == 1) {
+        file_path = TEST_FILEPATH;
     }
+    else {
+        if (argc == 1) {
+            file_path = DEFAULT_FILEPATH;
+        } 
+        else {
+            file_path = argv[1];
+        }
+    }
+    
     return file_path;
 }
 
 
 int main(int argc, char *argv[]) {
-    
+
+
     const char *file_path = parse_args(argc, argv);
     (void)fprintf(stderr, "INFO: Working data file: '%s'\n", file_path);
     (void)fprintf(stderr, "INFO: Signal static max size = %d\n", SIG_LENGTH);
@@ -44,34 +53,38 @@ int main(int argc, char *argv[]) {
     }
     fclose(fd);
 
+
     clock_t begin;
     clock_t end;
     double time_spent_EV;
     double time_spent_alg;
+    float phase_shift[signals.n];
 
     begin = clock();
     (void)signal_EV(signals.shifted, signals.n);
     end = clock();
     time_spent_EV = (double)(end - begin) / CLOCKS_PER_SEC;
-    (void)fprintf(stderr, "\nTime spent calculating the EV of a signal: %f\n", time_spent_EV);
-
-
-    float phase_shift[signals.n];
+    (void)fprintf(stderr, "\nTime spent calculating the EV of a signal: %fs\n", time_spent_EV);
 
     begin = clock();
-    determine_phase_shift(phase_shift, signals.reference, signals.shifted, signals.n); 
+    float shift_EV = determine_phase_shift(phase_shift, signals.reference, signals.shifted, signals.n); 
     end = clock();
     time_spent_alg = (double)(end - begin) / CLOCKS_PER_SEC;
-    (void)fprintf(stderr, "Time spent performing the algorithm: %f\n", time_spent_alg);
-
+    (void)fprintf(stderr, "Time spent performing the algorithm: %fs\n", time_spent_alg);
     double scale = time_spent_alg/time_spent_EV;
     (void)fprintf(stderr, "Scaling of %f\n", scale);
+
+
+    (void)fprintf(stderr, "\nEV of the shift is %f PI[rad]\n\n", shift_EV);
+    char fname[30];
+    if (TEST_CASE == 1) {
+        sprintf(fname, "shifts/test_case.csv");
+    }
+    else {
+        sprintf(fname, "shifts/id_%d.csv", signals.id);
+    }
     
-    char fname[20];
-
-    sprintf(fname, "shifts/id_%d.csv", signals.id);
-
-    (void)fprintf(stderr, "%s\n", fname);
+    (void)fprintf(stderr, "saved as '%s'\n", fname);
     write_into_csv(phase_shift, signals.n, fname);
 
     return 0;

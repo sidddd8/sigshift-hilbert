@@ -10,25 +10,25 @@ void unwrap_angle(float *in, float *out, int n) {
     out[0] = in[0];
     for (int i = 1; i < n; i++) {
         float d = in[i] - in[i-1];
-        d = d > PI ? d - 2 * PI : (d < -PI ? d + 2 * PI : d);
+        d = d > PI ? d - 2 * PI : (d <= -PI ? d + 2 * PI : d);
         out[i] = out[i-1] + d;
     }
 }
 
-float wrap_max(float x, float max)
-{
-    return fmodf(max + fmodf(x, max), max);
+float wrap_to_pi(float x) {
+    while (x < -PI) {
+        x = x + 2*PI;
+    }
+    while (x >= PI) {
+        x = x - 2*PI;
+    }
+    return x;
 }
 
 
-float wrap_between(float x, float min, float max)
-{
-    return min + wrap_max(x - min, max - min);
-}
+float determine_phase_shift(float* phase_shift, complex* reference, complex* shifted, int n) {
 
-
-void determine_phase_shift(float* phase_shift, complex* reference, complex* shifted, int n) {
-
+    
     hilbert(reference, n);
     hilbert(shifted, n);
 
@@ -44,7 +44,14 @@ void determine_phase_shift(float* phase_shift, complex* reference, complex* shif
     unwrap_angle(angle_ref, unwrapped_ref, n);
     unwrap_angle(angle_shift, unwrapped_shift, n);
 
+    float EV = 0.0;
+
     for (int i = 0; i < n; ++i) { 
         phase_shift[i] = unwrapped_ref[i] - unwrapped_shift[i];
+        EV = EV + unwrapped_ref[i] - unwrapped_shift[i];
     }
+    EV = EV/n;
+
+    return EV;
+
 }
