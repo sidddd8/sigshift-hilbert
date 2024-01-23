@@ -10,7 +10,8 @@
 #include "test_cases_signals.c"
 #include "processing.h"
 
-int TEST_CASE = 0; // leave at 0 for any input file other than the test file
+int TEST_CASE = 1; // leave at 0 for any input file other than the test file
+                   // for TEST_CASE = 1 also change SHIFTED_ID in 'SIG_CONFIG.h' to 1
 
 char* parse_args(int argc, char *argv[]) {
     char* file_path;

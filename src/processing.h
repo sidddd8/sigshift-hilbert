@@ -6,11 +6,7 @@ void get_angle(float* ret, complex* signal, int n);
 
 void unwrap_angle(float *in, float *out, int n);
 
-
-float wrap_max(float x, float max);
-
-
-float wrap_between(float x, float min, float max);
+float wrap_to_pi(float x);
 
 // finds immediate phase shift between the reference signal and a provided shifted signal.
 // stores the result in 'phase_shift;

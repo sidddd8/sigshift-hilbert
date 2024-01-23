@@ -4,6 +4,7 @@
 #define DEFAULT_FILEPATH "/src/data/DIT-SHM-dataset.csv"
 #define TEST_FILEPATH "/src/data/test.csv"
 
-#define SHIFTED_ID 9   // number 1 to 9
+#define SHIFTED_ID 1   // number 1 to 9 : column number of a signal
+                       // to be compared to the reference
 
-#define SIG_LENGTH 16384 // power of 2
+#define SIG_LENGTH 16384 // power of 2, larger than lenght of the signals
