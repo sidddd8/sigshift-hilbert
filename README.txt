@@ -1,4 +1,5 @@
 Semestral project for Diagnostics and Testing
+Computes shift between two signals using the Hilbert Transform.
 
 To run:
 in terminal type "make"
